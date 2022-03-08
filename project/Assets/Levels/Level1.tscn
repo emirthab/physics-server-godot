@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://gdnative/Server.gdns" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 499.75, 44.4375 )
@@ -30,7 +32,8 @@ extents = Vector2( 14.5, 7.38976 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 11.9628, 31.043 )
 
-[node name="DemoLevel3" type="Node2D"]
+[node name="DemoLevel1" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2( 480, 291 )
