@@ -9,7 +9,5 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 data_*/
-buildpck.bat
-compileandsend.bat
-project/server.pck
-sendserver.py
+godot-headless.64
+godot-server.64
