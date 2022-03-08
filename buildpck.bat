@@ -1,1 +1,0 @@
-"C:\Program Files\Godot Engine\Godot.exe" -path "./project/project.godot" --export-pack "Linux/X11" "server.pck"
