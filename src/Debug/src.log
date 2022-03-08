@@ -1,0 +1,7 @@
+﻿  ConnectedPeers.cpp
+C:\Users\gunun\Desktop\Server-cpp\godot-cpp\include\gen\Reference.hpp(8,10): fatal error C1083: içerme dosyası açılamıyor: 'core/CoreTypes.hpp': No such file or directory
+  entry.cpp
+C:\Users\gunun\Desktop\Server-cpp\godot-cpp\include\gen\Reference.hpp(8,10): fatal error C1083: içerme dosyası açılamıyor: 'core/CoreTypes.hpp': No such file or directory
+  Server.cpp
+C:\Users\gunun\Desktop\Server-cpp\godot-cpp\include\gen\Reference.hpp(8,10): fatal error C1083: içerme dosyası açılamıyor: 'core/CoreTypes.hpp': No such file or directory
+  Kod Üretiliyor...
