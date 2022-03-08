@@ -7,6 +7,12 @@ void Server::_register_methods()
 	register_method("_init", &Server::_init);
 	register_method("_process", &Server::_process);
 
+	register_method("OnClientConnected", &Server::OnClientConnected);
+	register_method("OnClientDisconnected", &Server::OnClientDisconnected);
+	register_method("OnClientCloseRequest", &Server::OnClientCloseRequest);
+	register_method("OnDataReceived", &Server::OnDataReceived);
+
+	
 }
 
 void Server::_init()

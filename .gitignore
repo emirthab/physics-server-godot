@@ -11,3 +11,5 @@ export_presets.cfg
 data_*/
 project/godot-headless.64
 project/godot-server.64
+src/.vs
+src/.vs/**
