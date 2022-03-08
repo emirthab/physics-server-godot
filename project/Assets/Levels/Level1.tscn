@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://gdnative/Server.gdns" type="Script" id=1]
+[sub_resource type="GDNativeLibrary" id=2]
+entry/OSX.64 = "res://gdnative/osx/libsimple.dylib"
+entry/Windows.64 = "res://gdnative/windows/libsimple.dll"
+entry/X11.64 = "res://gdnative/linux/libsimple.so"
+entry/X11.32 = "res://gdnative/linux/libsimple.so"
+entry/Server.x86_64 = "res://gdnative/linux/libsimple.so"
+entry/Server.X11.64 = "res://gdnative/linux/libsimple.so"
+entry/Server.X11.32 = "res://gdnative/linux/libsimple.so"
+dependency/OSX.64 = [  ]
+dependency/Windows.64 = [  ]
+dependency/X11.64 = [  ]
+dependency/X11.32 = [  ]
+dependency/Server = [  ]
+dependency/Server.x66_64 = [  ]
+dependency/Server.X11.64 = [  ]
+dependency/Server.X11.32 = [  ]
+
+[sub_resource type="NativeScript" id=1]
+resource_name = "Server"
+class_name = "Server"
+library = SubResource( 2 )
 
 [node name="Level1" type="Node2D"]
-script = ExtResource( 1 )
+script = SubResource( 1 )

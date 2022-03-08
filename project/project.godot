@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "",
+"class": "Server",
+"language": "NativeScript",
+"path": "res://gdnative/Server.gdns"
+} ]
+_global_script_class_icons={
+"Server": ""
+}
+
 [application]
 
 config/name="Saniyelika-Server-cpp"
