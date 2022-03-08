@@ -1,26 +1,91 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
-[sub_resource type="GDNativeLibrary" id=2]
-entry/OSX.64 = "res://gdnative/osx/libsimple.dylib"
-entry/Windows.64 = "res://gdnative/windows/libsimple.dll"
-entry/X11.64 = "res://gdnative/linux/libsimple.so"
-entry/X11.32 = "res://gdnative/linux/libsimple.so"
-entry/Server.x86_64 = "res://gdnative/linux/libsimple.so"
-entry/Server.X11.64 = "res://gdnative/linux/libsimple.so"
-entry/Server.X11.32 = "res://gdnative/linux/libsimple.so"
-dependency/OSX.64 = [  ]
-dependency/Windows.64 = [  ]
-dependency/X11.64 = [  ]
-dependency/X11.32 = [  ]
-dependency/Server = [  ]
-dependency/Server.x66_64 = [  ]
-dependency/Server.X11.64 = [  ]
-dependency/Server.X11.32 = [  ]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 499.75, 44.4375 )
 
-[sub_resource type="NativeScript" id=1]
-resource_name = "Server"
-class_name = "Server"
-library = SubResource( 2 )
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 285.938, 60.3594 )
 
-[node name="Level1" type="Node2D"]
-script = SubResource( 1 )
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 116.117, 60.3594 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13.375, 44.4375 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 33, 104.219 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 14.5, 153.109 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 29.625, 68.4722 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 72.3125, 27.2361 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 14.5, 7.38976 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 11.9628, 31.043 )
+
+[node name="DemoLevel3" type="Node2D"]
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2( 480, 291 )
+
+[node name="Collisions" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 495, 34 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 488, 533 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 864.883, 438 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 121, 436 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 908, 111 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 908, 265.781 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 967, 232 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 22, 233 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 66, 182.528 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 165.688, 142.764 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 610, 111 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 144, 218 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Collisions"]
+position = Vector2( 165, 213 )
+rotation = 0.366844
+shape = SubResource( 10 )

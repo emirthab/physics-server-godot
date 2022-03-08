@@ -1,5 +1,8 @@
 #include "Server.hpp"
 #include "ConnectedPeers.h"
+#include <KinematicBody2D.hpp>
+#include <ResourceLoader.hpp>
+#include <PackedScene.hpp>
 
 void Server::_register_methods()
 {
@@ -44,7 +47,11 @@ void Server::CreateServer()
 
 void Server::OnClientConnected(const int id,const godot::String &proto)
 {
-	Godot::print("Client connected");
+	Godot::print("Client connected with id : "+String(id));
+	ResourceLoader* reLo = ResourceLoader::get_singleton();
+	Ref<PackedScene> player = reLo->load("res://Assets/Player.tscn");
+	player->set_name(String(id));
+	get_node("SpawnPoint")->add_child(player->instance());
 }
 
 void Server::OnClientDisconnected()
