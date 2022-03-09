@@ -1,2 +1,2 @@
-PlatformToolSet=v142:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:VCServicingVersionCrtHeaders=14.29.30136:TargetPlatformVersion=10.0.19041.0:
-Debug|Win32|C:\Users\gunun\Desktop\Server-cpp\src\|
+PlatformToolSet=ClangCL:VCToolArchitecture=Native32Bit:VCToolsVersion=14.29.30133:VCServicingVersionCrtHeaders=14.29.30136:TargetPlatformVersion=10.0.19041.0:
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\Llvm|12.0.0|Debug|Win32|C:\Users\gunun\Desktop\Server-cpp\src\|

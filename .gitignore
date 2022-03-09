@@ -13,3 +13,5 @@ project/godot-headless.64
 project/godot-server.64
 src/.vs
 src/.vs/**
+src/.vs/src/v16/.suo
+src/.vs/src/v16/Browse.VC.db

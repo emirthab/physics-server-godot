@@ -3,20 +3,19 @@
 #include <Node.hpp>
 #include <WebSocketServer.hpp>
 #include <string>
-#include <KinematicBody2D.hpp>
 #include <ResourceLoader.hpp>
 #include <PackedScene.hpp>
 
-#include <iostream>
 #include "ConnectedPeers.hpp"
 
 using namespace godot;
 
-class Server : public Node
-{	
-	WebSocketServer* server = WebSocketServer::_new();
-	GODOT_CLASS(Server, Node);
+static WebSocketServer* server = WebSocketServer::_new();
 
+class ServerManager : public Node
+{	
+	GODOT_CLASS(ServerManager, Node);
+	
 	int Port = 3636;
 
 	Node* SpawnPoint;
@@ -29,13 +28,12 @@ class Server : public Node
 			static void SpesificIds(std::vector<int> ids, godot::Array data);
 			static void AllPlayers(godot::Array data);
 			static void AllPlayersExceptIds(std::vector<int> ids, godot::Array data);
-			static void SpesificId(int id);
-			static void AllPlayersExceptId(int id, godot::Array data);
+			static void SpesificId(int Id, godot::String Data);
+			static void AllPlayersExceptId(int Id, godot::Array Data);
 	};
 
 
 public:
-
 	static void _register_methods();
 	void _init();
 	void _process(const double p_delta);
@@ -47,6 +45,4 @@ public:
 	void OnClientCloseRequest();
 	void OnDataReceived(const int id);
 
-
-	static PoolByteArray StringToBuffer(char* data);
 };

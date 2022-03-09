@@ -1,0 +1,7 @@
+[gd_resource type="GDNativeLibrary" format=2]
+
+[resource]
+entry/Windows.64 = "res://gdnative/windows/libsimple.dll"
+entry/Windows.32 = "res://gdnative/windows/libsimple.dll"
+dependency/Windows.64 = [  ]
+dependency/Windows.32 = [  ]
