@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\godot-cpp\src\gen;..\godot-cpp\src\core;..\godot-cpp\include\gen;..\godot-cpp\include\core;..\godot-cpp\godot-headers;$(IncludePath)</IncludePath>
+    <IncludePath>..\godot-cpp\src\gen;..\godot-cpp\src\core;..\godot-cpp\include\gen;..\godot-cpp\include\core;C:\Users\gunun\Desktop\Server-cpp\src\External;..\godot-cpp\godot-headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -143,11 +143,11 @@
     <ClCompile Include="ConnectedPeers.cpp" />
     <ClCompile Include="DataReceiver.cpp" />
     <ClCompile Include="entry.cpp" />
-    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConnectedPeers.h" />
-    <ClInclude Include="Server.hpp" />
+    <ClInclude Include="ConnectedPeers.hpp" />
+    <ClInclude Include="ServerManager.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

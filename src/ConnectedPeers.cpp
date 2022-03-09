@@ -1,4 +1,4 @@
-#include "ConnectedPeers.h"
+#include "ConnectedPeers.hpp"
 #include <Godot.hpp>
 
 struct Peer* head = NULL;

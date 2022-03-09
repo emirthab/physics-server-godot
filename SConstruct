@@ -87,6 +87,7 @@ env.Append(
         godot_bindings_path + "/include",
         godot_bindings_path + "/include/gen/",
         godot_bindings_path + "/include/core/",
+        "src/External"
     ]
 )
 

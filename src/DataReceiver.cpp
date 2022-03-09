@@ -1,6 +1,6 @@
-#include "Server.hpp"
+#include "ServerManager.hpp"
 
 
-void Server::OnDataReceived(const int id) {
+void ServerManager::OnDataReceived(const int id) {
 	Godot::print("bu bir denemedr");
 }
