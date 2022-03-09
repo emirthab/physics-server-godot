@@ -16,7 +16,7 @@ void ServerManager::_register_methods()
 
 void ServerManager::_init()
 {
-	Godot::print("deneme baþladý");
+
 	/*
 	ConnectedPeers::InsertPeer(1, "deneme");
 	ConnectedPeers::InsertPeer(2, "deneme2");
@@ -53,7 +53,7 @@ void ServerManager::CreateServer()
 }
 
 
-void ServerManager::OnClientConnected(const int id,const godot::String &proto)
+void ServerManager::OnClientConnected(int id, godot::String proto)
 {
 	godot::String _id = godot::String(std::to_string(id).c_str());
 	Godot::print("Client connected with id : "+ _id);

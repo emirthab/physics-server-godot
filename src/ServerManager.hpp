@@ -10,12 +10,11 @@
 
 using namespace godot;
 
-static WebSocketServer* server = WebSocketServer::_new();
-
 class ServerManager : public Node
 {	
 	GODOT_CLASS(ServerManager, Node);
 	
+	WebSocketServer* server = WebSocketServer::_new();
 	int Port = 3636;
 
 	Node* SpawnPoint;
@@ -40,7 +39,7 @@ public:
 
 	void CreateServer();
 
-	void OnClientConnected(const int id,const godot::String &proto);
+	void OnClientConnected(int id, godot::String proto);
 	void OnClientDisconnected();
 	void OnClientCloseRequest();
 	void OnDataReceived(const int id);

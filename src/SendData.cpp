@@ -20,9 +20,11 @@ void ServerManager::SendData::AllPlayersExceptIds(std::vector<int> ids, godot::A
 
 void ServerManager::SendData::SpesificId(int Id, godot::String Data)
 {
-	Variant _server(server);
+	godot::String _id = godot::String(std::to_string(Id).c_str());
+	Godot::print( _id );
+	Variant _server(ServerManager().server);
 
-	Variant id(Id);
+	Variant id(_id);
 	Variant data(Data);
 	Variant utf8_buffer= data.call("to_utf8", nullptr, 0);
 	Variant* buffer[] = {&utf8_buffer};
@@ -31,6 +33,8 @@ void ServerManager::SendData::SpesificId(int Id, godot::String Data)
 	Variant peer = _server.call("get_peer", (const Variant**)args, 1);
 
 	peer.call("put_packet", (const Variant**)buffer, 1);
+
+	
 
 }
 
