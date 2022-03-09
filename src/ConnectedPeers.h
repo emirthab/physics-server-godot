@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -15,7 +16,8 @@ class ConnectedPeers {
 	public:
 
 	static void InsertPeer(int _id, string _displayName);
-
+	static void DeletePeer(int _id);
+	static std::vector<int> GetAllIds();
 	static struct Peer* GetPeer(const int _id);
 
 };

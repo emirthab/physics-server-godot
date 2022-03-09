@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConnectedPeers.cpp" />
+    <ClCompile Include="DataReceiver.cpp" />
     <ClCompile Include="entry.cpp" />
     <ClCompile Include="Server.cpp" />
   </ItemGroup>
