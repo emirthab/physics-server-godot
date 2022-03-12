@@ -13,6 +13,8 @@ void ConnectedPeers::InsertPeer(int _id, string _displayName)
 	if (head != NULL)
 		head->prev = newnode;
 	head = newnode;
+
+	PeersArray.push_back(_id);
 }
 
 struct Peer* ConnectedPeers::GetPeer(const int _id)
@@ -59,18 +61,8 @@ void ConnectedPeers::DeletePeer(const int _id)
 		del->prev->next = del->next;
 
 	free(del);
+	
+	PeersArray.erase(std::remove(PeersArray.begin(), PeersArray.end(), _id), PeersArray.end());
+
 	return;
-}
-
-std::vector<int> ConnectedPeers::GetAllIds()
-{
-	std::vector<int> ids;
-	struct Peer* ptr;
-	ptr = head;
-	while (ptr != NULL) {
-		ids.push_back(ptr->id);
-		ptr = ptr->next;
-	}
-
-	return ids;
 }

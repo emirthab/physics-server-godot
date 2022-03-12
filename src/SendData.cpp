@@ -3,10 +3,20 @@
 void ServerManager::SendData::SpesificIds(std::vector<int> ids, godot::Array data)
 {
 	for (int i = 0; i < ids.size(); i++) {
-		//Ref<WebSocketPeer> peer = server->get_peer(1);
-		//PoolByteArray _pack = StringToBuffer("bu bir deneme buffferidir.");
 
-		//server->put_packet(_pack);
+		ServerManager Manager;
+
+		Variant _data(data);
+		Variant utf8_buffer = _data.call("to_utf8", nullptr, 0);
+		Variant* buffer[] = { &utf8_buffer };
+
+		godot::Array arr;
+		arr.append(id);
+
+		Godot::print("send datadaki");
+		Variant peer = Manager.server->callv("get_peer", arr);
+		Godot::print(peer);
+		peer.call("put_packet", (const Variant**)buffer, 1);
 	}
 }
 
@@ -18,37 +28,21 @@ void ServerManager::SendData::AllPlayersExceptIds(std::vector<int> ids, godot::A
 {
 }
 
-void ServerManager::SendData::SpesificId(int Id, godot::String Data)
+void ServerManager::SendData::SpesificId(int id, godot::String data)
 {
-	godot::String _id = godot::String(std::to_string(Id).c_str());
-	Godot::print( _id );
-	Variant _server(ServerManager().server);
+	ServerManager Manager;
 
-	Variant id(_id);
-	Variant data(Data);
-	Variant utf8_buffer= data.call("to_utf8", nullptr, 0);
-	Variant* buffer[] = {&utf8_buffer};
+	Variant _data(data);
+	Variant utf8_buffer = _data.call("to_utf8", nullptr, 0);
+	Variant* buffer[] = { &utf8_buffer };
 
-	Variant* args[] = { &id };
-	Variant peer = _server.call("get_peer", (const Variant**)args, 1);
+	godot::Array arr;
+	arr.append(id);
 
+	Variant peer = Manager.server->callv("get_peer", arr);
 	peer.call("put_packet", (const Variant**)buffer, 1);
-
-	
-
 }
 
 void ServerManager::SendData::AllPlayersExceptId(int id, godot::Array data)
 {
-}
-
-PoolByteArray StringToBuffer(char* data)
-{
-	PoolByteArray arr;
-	for (int i = 0; i < strlen(data); i++) {
-		Godot::print("arraya atandý");
-		arr.set(i, data[i]);
-	}
-	
-	return arr;
 }
