@@ -1,4 +1,0 @@
-﻿  In file included from ConnectedPeers.cpp:2:
-  In file included from ..\godot-cpp\include\core\Godot.hpp:42:
-  In file included from ..\godot-cpp\include\core/Ref.hpp:35:
-..\godot-cpp\include\gen\Reference.hpp(8,10): fatal error : 'core/CoreTypes.hpp' file not found
