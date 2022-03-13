@@ -1,1 +1,19 @@
-Error: Can't run project: no main scene defined in the project.
+Godot Engine v3.4.2.stable.mono.official.45eaa2daf - https://godotengine.org
+OpenGL ES 3.0 Renderer: NVIDIA GeForce GTX 1060 3GB/PCIe/SSE2
+OpenGL ES Batching: ON
+ 
+Mono: Log file is: 'C:/Users/gunun/AppData/Roaming/Godot/mono/mono_logs/2022-03-13_12.05.33_11352.log'
+ERROR: Cannot open file 'res://gdnative/ServerManager.gdns'.
+   at: load_interactive (scene/resources/resource_format_text.cpp:1183) - Condition "err != OK" is true. Returned: Ref<ResourceInteractiveLoader>()
+ERROR: Failed loading resource: res://gdnative/ServerManager.gdns. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:270) - Condition "found" is true. Returned: RES()
+ERROR: res://project/Assets/Levels/Level1.tscn:3 - Parse Error: [ext_resource] referenced nonexistent resource at: res://gdnative/ServerManager.gdns
+   at: poll (scene/resources/resource_format_text.cpp:412) - res://project/Assets/Levels/Level1.tscn:3 - Parse Error: [ext_resource] referenced nonexistent resource at: res://gdnative/ServerManager.gdns
+ERROR: Failed to load resource 'res://project/Assets/Levels/Level1.tscn'.
+   at: load (core/io/resource_loader.cpp:206) - Condition "err != OK" is true. Returned: RES()
+ERROR: Failed loading resource: res://project/Assets/Levels/Level1.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:270) - Condition "found" is true. Returned: RES()
+ERROR: Failed loading scene: res://project/Assets/Levels/Level1.tscn
+   at: start (main/main.cpp:2011) - Condition "!scene" is true. Returned: false
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object.cpp:2064) - ObjectDB instances leaked at exit (run with --verbose for details).

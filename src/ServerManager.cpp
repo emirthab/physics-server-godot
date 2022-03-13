@@ -1,6 +1,7 @@
 #include "ServerManager.hpp"
+#include "DataStringifier.hpp"
 
-
+using namespace godot;
 
 void ServerManager::_register_methods()
 {
@@ -17,18 +18,9 @@ void ServerManager::_register_methods()
 
 void ServerManager::_init()
 {
-	
-	/*
-	ConnectedPeers::InsertPeer(1, "deneme");d
-	ConnectedPeers::InsertPeer(2, "deneme2");
-	std::vector<int> array = ConnectedPeers::GetAllIds();
-	for (int i = 0; i < array.size(); i++) {
-		Godot::print(String(std::to_string(array[i]).c_str()));
-	}
-	*/
-	Godot::print("This is a init");
+	server.instance();
 	CreateServer();
-	SpawnPoint = get_node("SpawnPoint");
+	//SpawnPoint = get_node("SpawnPoint");
 	
 }
 
@@ -64,20 +56,12 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 	
 	Node* player = _player->instance();
 	player->set_name(_id);
-	get_node("SpawnPoint")->add_child(player);
-
-	godot::Array arr;
-	arr.append(id);
-	Variant peer = server->callv("get_peer", arr);
-	Godot::print(peer);
-
-	Variant _data("Demo Buffer");
-	Variant utf8_buffer = _data.call("to_utf8", nullptr, 0);
-	Variant* buffer[] = { &utf8_buffer };
-
-	peer.call("put_packet", (const Variant**)buffer, 1);
-	//SendData::SpesificId(12, "sad");;
-	//peer.call("put_packet", (const Variant **)"sad", 1);
+	//get_node("SpawnPoint")->add_child(player);
+	
+	godot::String idinfo = DataStringifier::IdInfo(id);
+	Godot::print(idinfo);
+	
+	SendData::SpesificId(id, idinfo);
 }
 
 void ServerManager::OnClientDisconnected()
@@ -92,4 +76,53 @@ void ServerManager::OnClientCloseRequest()
 void ServerManager::_process(const double p_delta)
 {
 	server->poll();
+}
+
+Variant ServerManager::GetPeer(int id) {
+	godot::Array arr;
+	arr.append(id);
+
+	Variant peer = server->callv("get_peer", arr);
+	return peer;
+}
+
+void ServerManager::PutPacket(Variant peer, godot::String data) {
+	Variant _data(data);
+	Variant utf8_buffer = _data.call("to_utf8", nullptr, 0);
+	Variant* buffer[1] = { &utf8_buffer };
+
+	peer.call("put_packet", (const Variant**)buffer, 1);
+}
+
+//SEND DATA FUNCTIONS
+
+void SendData::SpesificIds(std::vector<int> ids, godot::String data)
+{
+	for (int i : ids) { PutPacket(i, data); }
+}
+
+void SendData::AllPlayers(godot::String data)
+{
+	for (int i : PeersArray) { PutPacket(i, data); }
+}
+
+void SendData::AllPlayersExceptIds(std::vector<int> ids, godot::String data)
+{
+	for (int i : PeersArray) {
+		bool isOnList = false;
+		for (int z : ids) { if (i == z) { isOnList = true; break; } }
+
+		if (isOnList = false) { PutPacket(i, data); }
+	}
+}
+
+
+void SendData::SpesificId(int id, godot::String data)
+{
+	PutPacket(GetPeer(id), data);
+}
+
+void SendData::AllPlayersExceptId(int id, godot::String data)
+{
+	for (int i : PeersArray) { if (i != id) { PutPacket(GetPeer(id), data); } }
 }

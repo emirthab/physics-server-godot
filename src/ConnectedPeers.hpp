@@ -10,12 +10,12 @@ struct Peer {
 	struct Peer* prev;
 	struct Peer* next;
 };
+static std::vector<int> PeersArray;
 
 class ConnectedPeers {
 
 	public:
 	
-		static std::vector<int> PeersArray;
 		static void InsertPeer(int _id, string _displayName);
 		static void DeletePeer(int _id);
 		static struct Peer* GetPeer(const int _id);

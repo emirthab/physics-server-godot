@@ -9,10 +9,13 @@
 #include <PackedScene.hpp>
 #include <PacketPeer.hpp>
 #include <iostream>
+#include <Ref.hpp>
 
 #include "ConnectedPeers.hpp"
 
 using namespace godot;
+
+static Ref<WebSocketServer> server;
 
 class ServerManager : public Node
 {	
@@ -24,23 +27,12 @@ class ServerManager : public Node
 	int xSpawn;
 	int ySpawn;
 
-	class SendData
-	{
-		public:
-			void SpesificIds(std::vector<int> ids, godot::Array data);
-			void AllPlayers(godot::Array data);
-			void AllPlayersExceptIds(std::vector<int> ids, godot::Array data);
-			void SpesificId(int Id, godot::String Data);
-			void AllPlayersExceptId(int id, godot::Array data);
-	};
-
-
 public:
-
-	WebSocketServer* server = WebSocketServer::_new();
-
+	
+	
 	static void _register_methods();
 	
+
 	void _init();
 	void _process(const double p_delta);
 
@@ -51,5 +43,17 @@ public:
 	void OnClientCloseRequest();
 	void OnDataReceived(const int id);
 
+	static Variant GetPeer(int id);
+	static void PutPacket(Variant peer, godot::String data);
+
+};
+
+class SendData : public ServerManager {
+	public:
+		static void SpesificIds(std::vector<int> ids, godot::String data);
+		static void AllPlayers(godot::String data);
+		static void AllPlayersExceptIds(std::vector<int> ids, godot::String data);
+		static void SpesificId(int Id, godot::String Data);
+		static void AllPlayersExceptId(int id, godot::String data);
 
 };
