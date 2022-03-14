@@ -10,6 +10,9 @@
 #include <PacketPeer.hpp>
 #include <iostream>
 #include <Ref.hpp>
+#include <Transform.hpp>
+#include <Node2D.hpp> 
+#include <Vector2.hpp>
 
 #include "ConnectedPeers.hpp"
 
@@ -22,7 +25,6 @@ class ServerManager : public Node
 	GODOT_CLASS(ServerManager, Node);
 
 	int Port = 3636;
-
 	Node* SpawnPoint;
 	int xSpawn;
 	int ySpawn;
@@ -39,8 +41,8 @@ public:
 	void CreateServer();
 
 	void OnClientConnected(int id, godot::String proto);
-	void OnClientDisconnected();
-	void OnClientCloseRequest();
+	void OnClientDisconnected(int id, bool was_clean_close);
+	void OnClientCloseRequest(int id, int code, godot::String reason);
 	void OnDataReceived(const int id);
 
 	static Variant GetPeer(int id);

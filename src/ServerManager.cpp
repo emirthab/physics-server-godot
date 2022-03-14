@@ -20,7 +20,7 @@ void ServerManager::_init()
 {
 	server.instance();
 	CreateServer();
-	//SpawnPoint = get_node("SpawnPoint");
+	SpawnPoint = Object::cast_to<Node>( get_node("SpawnPoint") );
 	
 }
 
@@ -56,20 +56,40 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 	
 	Node* player = _player->instance();
 	player->set_name(_id);
-	//get_node("SpawnPoint")->add_child(player);
+	get_node("SpawnPoint")->add_child(player);
 	
-	godot::String idinfo = DataStringifier::IdInfo(id);
-	Godot::print(idinfo);
-	
-	SendData::SpesificId(id, idinfo);
+	SendData::SpesificId(id, DataStringifier::IdInfo(id) );
+	SendData::AllPlayers(DataStringifier::NewPlayerJoinedWithId(id));
+
+	if (PeersArray.size() > 0) {
+		for (int i : PeersArray) {
+			Godot::print("SpawnPoint/" + godot::String( std::to_string(i).c_str() ));
+			Node2D* player = get_node<Node2D>(NodePath("SpawnPoint/" + godot::String(std::to_string(i).c_str())) );
+			float x = player->get_transform().get_origin().x;
+			float y = player->get_transform().get_origin().x;
+			Godot::print(godot::String(x));
+			Godot::print(godot::String(y));
+			SendData::SpesificId(id, DataStringifier::OldPlayerDataToJoinedPlayer(i, x, y));
+		}
+	}
+	PeersArray.push_back(id);
 }
 
-void ServerManager::OnClientDisconnected()
+void ServerManager::OnClientDisconnected(int id, bool was_clean_close)
 {
+	godot::String _id = godot::String(std::to_string(id).c_str());
+	Godot::print("Client disconnected with id : " + _id);
+	ConnectedPeers::DeletePeer(id);
+	get_node(NodePath("SpawnPoint" + _id))->queue_free();
+	
 }
 
-void ServerManager::OnClientCloseRequest()
+void ServerManager::OnClientCloseRequest(int id, int code, godot::String reason)
 {
+	godot::String _id = godot::String(std::to_string(id).c_str());
+	Godot::print("Client disconnected with id : " + _id);
+	ConnectedPeers::DeletePeer(id);
+	get_node(NodePath("SpawnPoint" + _id))->queue_free();
 	
 }
 

@@ -14,8 +14,6 @@ void ConnectedPeers::InsertPeer(int _id, string _displayName)
 	if (head != NULL)
 		head->prev = newnode;
 	head = newnode;
-
-	PeersArray.push_back(_id);
 }
 
 struct Peer* ConnectedPeers::GetPeer(const int _id)
