@@ -6,7 +6,7 @@ using namespace std;
 
 struct Peer {
 	int id;
-	char displayName[16];
+	std::string displayName;
 	struct Peer* prev;
 	struct Peer* next;
 };
@@ -16,7 +16,7 @@ class ConnectedPeers {
 
 	public:
 	
-		static void InsertPeer(int _id, string _displayName);
+		static void InsertPeer(int _id);
 		static void DeletePeer(int _id);
 		static struct Peer* GetPeer(const int _id);
 

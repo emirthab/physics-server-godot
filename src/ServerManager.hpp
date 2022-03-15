@@ -47,7 +47,9 @@ public:
 
 	static Variant GetPeer(int id);
 	static void PutPacket(Variant peer, godot::String data);
+	static godot::String GetPacket(Variant peer);
 
+	void SetPlayerDisplayName(int id, std::string _displayName);
 };
 
 class SendData : public ServerManager {

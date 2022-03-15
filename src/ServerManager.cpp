@@ -72,6 +72,7 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 			SendData::SpesificId(id, DataStringifier::OldPlayerDataToJoinedPlayer(i, x, y));
 		}
 	}
+	ConnectedPeers::InsertPeer(id);
 	PeersArray.push_back(id);
 }
 
@@ -114,6 +115,12 @@ void ServerManager::PutPacket(Variant peer, godot::String data) {
 	peer.call("put_packet", (const Variant**)buffer, 1);
 }
 
+godot::String ServerManager::GetPacket(Variant peer){
+	Variant pktBuffer = peer.call("get_packet", nullptr, 0);
+	godot::String pkt = pktBuffer.call("get_string_from_urf8", nullptr, 0);
+	Godot::print(pkt);
+}
+
 //SEND DATA FUNCTIONS
 
 void SendData::SpesificIds(std::vector<int> ids, godot::String data)
@@ -145,4 +152,9 @@ void SendData::SpesificId(int id, godot::String data)
 void SendData::AllPlayersExceptId(int id, godot::String data)
 {
 	for (int i : PeersArray) { if (i != id) { PutPacket(GetPeer(id), data); } }
+}
+
+void ServerManager::SetPlayerDisplayName(int id, std::string _displayName){
+	Peer* player = ConnectedPeers::GetPeer(id);
+	player->displayName = _displayName;
 }

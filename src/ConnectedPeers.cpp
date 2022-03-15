@@ -1,14 +1,12 @@
 #include "ConnectedPeers.hpp"
 #include <Godot.hpp>
-#include <algorithm>
 
 struct Peer* head = NULL;
 
-void ConnectedPeers::InsertPeer(int _id, string _displayName)
+void ConnectedPeers::InsertPeer(int _id)
 {
 	struct Peer* newnode = (struct Peer*)malloc(sizeof(struct Peer));
 	newnode->id = _id;
-	strcpy(newnode->displayName, _displayName.c_str());
 	newnode->prev = NULL;
 	newnode->next = head;
 	if (head != NULL)

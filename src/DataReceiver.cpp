@@ -2,7 +2,17 @@
 
 
 void ServerManager::OnDataReceived(const int id) {
-	Godot::print("bu bir denemedr");
+	godot::String
+
+	switch (expression)
+	{
+	case /* constant-expression */:
+		/* code */
+		break;
+	
+	default:
+		break;
+	}
 }
 
 
