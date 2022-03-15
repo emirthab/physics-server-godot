@@ -18,9 +18,15 @@ void ServerManager::_register_methods()
 
 void ServerManager::_init()
 {
+	pingTimer->set_wait_time(0.5);
+	pingTimer->set_one_shot(false);
+	pingTimer->connect("timeout", this, "OnPingTimerTimeout");
+	add_child(pingTimer);
+	pingTimer->start();
+
 	server.instance();
 	CreateServer();
-	SpawnPoint = Object::cast_to<Node>( get_node("SpawnPoint") );
+	//SpawnPoint = Object::cast_to<Node>( get_node("SpawnPoint") );
 	
 }
 
@@ -63,12 +69,9 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 
 	if (PeersArray.size() > 0) {
 		for (int i : PeersArray) {
-			Godot::print("SpawnPoint/" + godot::String( std::to_string(i).c_str() ));
 			Node2D* player = get_node<Node2D>(NodePath("SpawnPoint/" + godot::String(std::to_string(i).c_str())) );
 			float x = player->get_transform().get_origin().x;
 			float y = player->get_transform().get_origin().x;
-			Godot::print(godot::String(x));
-			Godot::print(godot::String(y));
 			SendData::SpesificId(id, DataStringifier::OldPlayerDataToJoinedPlayer(i, x, y));
 		}
 	}
@@ -81,16 +84,22 @@ void ServerManager::OnClientDisconnected(int id, bool was_clean_close)
 	godot::String _id = godot::String(std::to_string(id).c_str());
 	Godot::print("Client disconnected with id : " + _id);
 	ConnectedPeers::DeletePeer(id);
-	get_node(NodePath("SpawnPoint" + _id))->queue_free();
+	NodePath path = NodePath("SpawnPoint/" + _id);
+	if (has_node(path)) {
+		get_node(path)->queue_free();
+	}
 	
 }
 
 void ServerManager::OnClientCloseRequest(int id, int code, godot::String reason)
 {
 	godot::String _id = godot::String(std::to_string(id).c_str());
-	Godot::print("Client disconnected with id : " + _id);
+	Godot::print("Client closed with id : " + _id);
 	ConnectedPeers::DeletePeer(id);
-	get_node(NodePath("SpawnPoint" + _id))->queue_free();
+	NodePath path = NodePath("SpawnPoint/" + _id);
+	if (has_node(path)) {
+		get_node(path)->queue_free();
+	}
 	
 }
 
@@ -100,10 +109,10 @@ void ServerManager::_process(const double p_delta)
 }
 
 Variant ServerManager::GetPeer(int id) {
-	godot::Array arr;
-	arr.append(id);
+	godot::Array args;
+	args.append(id);
 
-	Variant peer = server->callv("get_peer", arr);
+	Variant peer = server->callv("get_peer", args);
 	return peer;
 }
 
@@ -117,11 +126,36 @@ void ServerManager::PutPacket(Variant peer, godot::String data) {
 
 godot::String ServerManager::GetPacket(Variant peer){
 	Variant pktBuffer = peer.call("get_packet", nullptr, 0);
-	godot::String pkt = pktBuffer.call("get_string_from_urf8", nullptr, 0);
-	Godot::print(pkt);
+	godot::String pkt = pktBuffer.call("get_string_from_utf8", nullptr, 0);
+	//Godot::print(pkt);
+	return pkt;
 }
 
-//SEND DATA FUNCTIONS
+void ServerManager::OnPingTimerTimeout() {
+	auto now = std::chrono::system_clock::now();
+	auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
+	auto epoch = now_ms.time_since_epoch();
+	auto value = std::chrono::duration_cast<std::chrono::milliseconds>(epoch);
+	//lastSendedPingTime = value.count();
+	SendData::AllPlayers(DataStringifier::Ping());
+}
+
+void ServerManager::SetPlayerDisplayName(int id, std::string _displayName) {
+	Peer* player = ConnectedPeers::GetPeer(id);
+	player->displayName = _displayName;
+}
+
+
+
+/*
+                         _       _       _
+      ___  ___ _ __   __| |   __| | __ _| |_ __ _ 
+     / __|/ _ \ '_ \ / _` |  / _` |/ _` | __/ _` |
+     \__ \  __/ | | | (_| | | (_| | (_| | || (_| |
+     |___/\___|_| |_|\__,_|  \__,_|\__,_|\__\__,_|
+
+*/
+                                              
 
 void SendData::SpesificIds(std::vector<int> ids, godot::String data)
 {
@@ -143,7 +177,6 @@ void SendData::AllPlayersExceptIds(std::vector<int> ids, godot::String data)
 	}
 }
 
-
 void SendData::SpesificId(int id, godot::String data)
 {
 	PutPacket(GetPeer(id), data);
@@ -152,9 +185,4 @@ void SendData::SpesificId(int id, godot::String data)
 void SendData::AllPlayersExceptId(int id, godot::String data)
 {
 	for (int i : PeersArray) { if (i != id) { PutPacket(GetPeer(id), data); } }
-}
-
-void ServerManager::SetPlayerDisplayName(int id, std::string _displayName){
-	Peer* player = ConnectedPeers::GetPeer(id);
-	player->displayName = _displayName;
 }

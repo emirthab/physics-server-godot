@@ -7,12 +7,13 @@
 #include <string>
 #include <ResourceLoader.hpp>
 #include <PackedScene.hpp>
-#include <PacketPeer.hpp>
 #include <iostream>
-#include <Ref.hpp>
-#include <Transform.hpp>
 #include <Node2D.hpp> 
 #include <Vector2.hpp>
+#include <Array.hpp>
+#include <Timer.hpp>
+#include <chrono>
+#include <SceneTree.hpp>
 
 #include "ConnectedPeers.hpp"
 
@@ -25,31 +26,40 @@ class ServerManager : public Node
 	GODOT_CLASS(ServerManager, Node);
 
 	int Port = 3636;
-	Node* SpawnPoint;
+	//Node* SpawnPoint;
 	int xSpawn;
 	int ySpawn;
+	Timer* pingTimer = Timer::_new();
 
-public:
+	public:
 	
 	
-	static void _register_methods();
+		static void _register_methods();
 	
 
-	void _init();
-	void _process(const double p_delta);
+		void _init();
+		void _process(const double p_delta);
 
-	void CreateServer();
+		void CreateServer();
 
-	void OnClientConnected(int id, godot::String proto);
-	void OnClientDisconnected(int id, bool was_clean_close);
-	void OnClientCloseRequest(int id, int code, godot::String reason);
-	void OnDataReceived(const int id);
+		void OnClientConnected(int id, godot::String proto);
+		void OnClientDisconnected(int id, bool was_clean_close);
+		void OnClientCloseRequest(int id, int code, godot::String reason);
+		void OnDataReceived(const int id);
 
-	static Variant GetPeer(int id);
-	static void PutPacket(Variant peer, godot::String data);
-	static godot::String GetPacket(Variant peer);
+		void OnPingTimerTimeout();
 
-	void SetPlayerDisplayName(int id, std::string _displayName);
+		static long lastSendedPingTime;
+
+		static Variant GetPeer(int id);
+		static void PutPacket(Variant peer, godot::String data);
+		static godot::String GetPacket(Variant peer);
+		static godot::Array str2array(godot::String data);
+
+
+		void SetPlayerDisplayName(int id, std::string _displayName);
+
+		
 };
 
 class SendData : public ServerManager {

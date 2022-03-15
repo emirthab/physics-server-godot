@@ -3,5 +3,5 @@
 [ext_resource path="res://gdnative/NativeLib.tres" type="GDNativeLibrary" id=1]
 
 [resource]
-class_name = "ServerManager"
+class_name = "Player"
 library = ExtResource( 1 )
