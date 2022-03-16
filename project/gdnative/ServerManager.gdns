@@ -1,8 +1,16 @@
 [gd_resource type="NativeScript" load_steps=2 format=2]
 
-[ext_resource path="res://gdnative/NativeLib.tres" type="GDNativeLibrary" id=1]
+[sub_resource type="GDNativeLibrary" id=1]
+entry/Windows.64 = "res://gdnative/windows/libsimple.dll"
+entry/Windows.32 = "res://gdnative/windows/libsimple.dll"
+entry/X11.64 = "res://gdnative/linux/libsimple.so"
+entry/X11.32 = "res://gdnative/linux/libsimple.so"
+dependency/Windows.64 = [  ]
+dependency/Windows.32 = [  ]
+dependency/X11.64 = [  ]
+dependency/X11.32 = [  ]
 
 [resource]
 resource_name = "ServerManager"
 class_name = "ServerManager"
-library = ExtResource( 1 )
+library = SubResource( 1 )

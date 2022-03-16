@@ -1,0 +1,22 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=true
+
+[entry]
+
+Windows.64="res://gdnative/windows/libsimple.dll"
+Windows.32="res://gdnative/windows/libsimple.dll"
+X11.64="res://gdnative/linux/libsimple.so"
+X11.32="res://gdnative/linux/libsimple.so"
+Server="res://gdnative/linux/libsimple.so"
+
+[dependencies]
+
+Windows.64=[  ]
+Windows.32=[  ]
+X11.64=[  ]
+X11.32=[  ]
+Server=[  ]
