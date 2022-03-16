@@ -20,9 +20,7 @@ void ServerManager::OnDataReceived(const int id) {
 		case 0x06 :
 			using namespace std::chrono;
 			uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-			uint64_t abs_diff = (lastSendedPingTime > currentTime) ? (currentTime - lastSendedPingTime) : (lastSendedPingTime - currentTime);
-			assert(abs_diff <= INT64_MAX);
-			int ping = (lastSendedPingTime > currentTime) ? (int64_t)abs_diff : -(int64_t)abs_diff;
+			int ping = currentTime - lastSendedPingTime ;
 			args.append(ping);
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
 			break;
