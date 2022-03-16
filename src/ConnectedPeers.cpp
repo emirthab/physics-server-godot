@@ -1,5 +1,4 @@
 #include "ConnectedPeers.hpp"
-#include <Godot.hpp>
 
 struct Peer* head = NULL;
 
@@ -12,9 +11,11 @@ void ConnectedPeers::InsertPeer(int _id)
 	if (head != NULL)
 		head->prev = newnode;
 	head = newnode;
+
+	
 }
 
-struct Peer* ConnectedPeers::GetPeer(const int _id)
+struct Peer* ConnectedPeers::GetPeer(int _id)
 {
 	struct Peer* ptr;
 	ptr = head;
@@ -30,8 +31,21 @@ struct Peer* ConnectedPeers::GetPeer(const int _id)
 	return NULL;
 }
 
-void ConnectedPeers::DeletePeer(const int _id)
+std::vector<int> ConnectedPeers::GetPeersArray()
 {
+	std::vector<int> arr;
+	struct Peer* ptr;
+	ptr = head;
+	while (ptr != NULL) {
+		arr.push_back(ptr->id);
+		ptr = ptr->next;
+	}
+	return arr;
+}
+
+void ConnectedPeers::DeletePeer(int _id)
+{
+
 	struct Peer* ptr;
 	struct Peer* del = NULL;
 	ptr = head;
@@ -41,7 +55,7 @@ void ConnectedPeers::DeletePeer(const int _id)
 			break;
 		}
 		else {
-			del = del->next;
+			ptr = ptr->next;
 		}
 	}
 
@@ -58,8 +72,6 @@ void ConnectedPeers::DeletePeer(const int _id)
 		del->prev->next = del->next;
 
 	free(del);
-	
-	PeersArray.erase(std::remove(PeersArray.begin(), PeersArray.end(), _id), PeersArray.end());
 
 	return;
 }

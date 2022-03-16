@@ -17,6 +17,7 @@ class DataStringifier {
 		int ClientDisconnected = 0x03;
 		int Ping = 0x06;
 		int MovementInputData = 0x05;
+		int LagCompensationPosition = 0x04;
 
 	};
 
@@ -28,4 +29,6 @@ public:
 	static godot::String ClientDisconnected(int id);
 	static godot::String Ping();
 	static godot::String MovementInputData(int id, int key, int value);
+	static godot::String LagCompensationPosition(int id, float PosX, float PosY);
+
 };

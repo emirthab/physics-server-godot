@@ -12,7 +12,12 @@
 #include <Vector2.hpp>
 #include <Array.hpp>
 #include <Timer.hpp>
+
 #include <chrono>
+#include <iostream>
+#include <time.h>
+#include <ctime>
+
 #include <SceneTree.hpp>
 
 #include "ConnectedPeers.hpp"
@@ -20,6 +25,7 @@
 using namespace godot;
 
 static Ref<WebSocketServer> server;
+static int lastSendedPingTime;
 
 class ServerManager : public Node
 {	
@@ -29,7 +35,6 @@ class ServerManager : public Node
 	//Node* SpawnPoint;
 	int xSpawn;
 	int ySpawn;
-	Timer* pingTimer = Timer::_new();
 
 	public:
 	
@@ -39,6 +44,7 @@ class ServerManager : public Node
 
 		void _init();
 		void _process(const double p_delta);
+		void _ready();
 
 		void CreateServer();
 
@@ -49,13 +55,12 @@ class ServerManager : public Node
 
 		void OnPingTimerTimeout();
 
-		static long lastSendedPingTime;
-
 		static Variant GetPeer(int id);
 		static void PutPacket(Variant peer, godot::String data);
 		static godot::String GetPacket(Variant peer);
 		static godot::Array str2array(godot::String data);
-
+		
+		Timer* pingTimer;
 
 		void SetPlayerDisplayName(int id, std::string _displayName);
 

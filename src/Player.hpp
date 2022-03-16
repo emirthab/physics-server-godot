@@ -5,6 +5,7 @@
 #include <vector>
 #include <Vector2.hpp>
 #include <KinematicBody2D.hpp>
+#include <math.h>
 
 using namespace godot;
 
@@ -12,28 +13,30 @@ class Player : public KinematicBody2D
 {
 	GODOT_CLASS(Player, KinematicBody2D);
 
-	/*int speed = 200;
+	int speed = 200;
+
+	Vector2 velocity = Vector2(0,0);
+	
+	int isPressingRight = 0;
+	int isPressingLeft = 0;
+	int isPressingDown = 0;
+	int isPressingUp = 0;
+
 	int processTime;
 
-	Vector2 velocity = Vector2::ZERO;
-	
-	bool isPressingRight = false;
-	bool isPressingLeft = false;
-	bool isPressingDown = false;
-	bool isPressingUp = false;
-
-	std::vector<Vector2> LocationDataHistory;*/
+	std::vector<Vector2> LocationDataHistory;
 
 	public:
 		static void _register_methods();
-		void _process(float delta);
+		void _init();
+		void _physics_process(float delta);
 
-		/*static long PING;
+		int PING;
 
 		void receiveMovementData(int key, bool value);
 		void setPing();
 		void locationDataRecognizer(float delta);
-		void syncLagCompensation();*/
+		void syncLagCompensation();
 		
 		
 };

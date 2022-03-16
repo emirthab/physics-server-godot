@@ -3,5 +3,6 @@
 [ext_resource path="res://gdnative/NativeLib.tres" type="GDNativeLibrary" id=1]
 
 [resource]
+resource_name = "Player"
 class_name = "Player"
 library = ExtResource( 1 )

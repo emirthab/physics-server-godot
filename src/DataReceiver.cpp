@@ -1,20 +1,25 @@
 #include "ServerManager.hpp"
 
 void ServerManager::OnDataReceived(const int id) {
+	godot::String _id = godot::String(std::to_string(id).c_str());
+	godot::Array args;
+	SceneTree* tree = get_tree();
+
 	godot::String pkt = GetPacket(GetPeer(id));
 	godot::Array pktArray = str2array(pkt);
 	
 	switch (int( pktArray[0] ))
 	{
-	case 0x05 :
-		godot::String _id = godot::String(std::to_string(id).c_str());
-		godot::Array args;
-		args.append(pktArray[1]);
-		args.append(pktArray[2]);
-		SceneTree* tree = get_tree();
-		tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("receiveMovementData", args);
+		case 0x05 :
+			args.append(pktArray[1]);
+			args.append(pktArray[2]);
+			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("receiveMovementData", args);
+			break;
 
-	//case 0x06:;
+		case 0x06 : 
+			Godot::print("Ping Geldi");
+			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
+			break;
 	}
 }
 
