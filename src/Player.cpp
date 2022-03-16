@@ -42,11 +42,12 @@ void Player::receiveMovementData(int key, bool value)
 
 void Player::setPing()
 {
+	ServerManager Manager;
 	using namespace std::chrono;
 	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-	Godot::print( "lastPingTime = " + godot::String(std::to_string(lastSendedPingTime).c_str()));
+	Godot::print( "lastPingTime = " + godot::String(std::to_string(Manager.lastSendedPingTime).c_str()));
 	Godot::print("CurretnTime = " + godot::String(std::to_string(currentTime).c_str()));
-	PING = lastSendedPingTime - currentTime;
+	PING = Manager.lastSendedPingTime - currentTime;
 }
 
 void Player::locationDataRecognizer(float delta)

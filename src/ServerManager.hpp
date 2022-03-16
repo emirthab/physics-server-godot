@@ -23,7 +23,6 @@
 using namespace godot;
 
 static Ref<WebSocketServer> server;
-static uint64_t lastSendedPingTime;
 
 class ServerManager : public Node
 {	
@@ -35,8 +34,6 @@ class ServerManager : public Node
 	int ySpawn;
 
 	public:
-	
-	
 		static void _register_methods();
 
 		void _init();
@@ -44,6 +41,8 @@ class ServerManager : public Node
 		void _ready();
 
 		void CreateServer();
+		
+		uint64_t lastSendedPingTime;
 
 		void OnClientConnected(int id, godot::String proto);
 		void OnClientDisconnected(int id, bool was_clean_close);
