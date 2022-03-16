@@ -31,7 +31,7 @@ class Player : public KinematicBody2D
 		void _init();
 		void _physics_process(float delta);
 
-		int PING;
+		uint64_t PING;
 
 		void receiveMovementData(int key, bool value);
 		void setPing();
