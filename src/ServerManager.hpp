@@ -38,7 +38,7 @@ class ServerManager : public Node
 	
 		static void _register_methods();
 	
-		uint64_t lastSendedPingTime;
+		static uint64_t lastSendedPingTime;
 
 		void _init();
 		void _process(const double p_delta);
