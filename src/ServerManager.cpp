@@ -2,6 +2,7 @@
 #include "DataStringifier.hpp"
 
 using namespace godot;
+using namespace std::chrono;
 
 void ServerManager::_register_methods()
 {
@@ -134,7 +135,6 @@ godot::String ServerManager::GetPacket(Variant peer){
 }
 
 void ServerManager::OnPingTimerTimeout() {
-	using namespace std::chrono;
 	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 	lastSendedPingTime = currentTime;
 	//Godot::print("lastPingTimeONSERVERMANAGER = " + godot::String(std::to_string(lastSendedPingTime).c_str()));

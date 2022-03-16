@@ -34,7 +34,7 @@ class Player : public KinematicBody2D
 		uint64_t PING;
 
 		void receiveMovementData(int key, bool value);
-		void setPing(uint64_t lastTime);
+		void setPing(int ping);
 		void locationDataRecognizer(float delta);
 		void syncLagCompensation();
 		

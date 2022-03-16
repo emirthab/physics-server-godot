@@ -1,4 +1,5 @@
 #include "ServerManager.hpp"
+#include <assert.h>
 
 void ServerManager::OnDataReceived(const int id) {
 	godot::String _id = godot::String(std::to_string(id).c_str());
@@ -17,7 +18,12 @@ void ServerManager::OnDataReceived(const int id) {
 			break;
 
 		case 0x06 :
-			args.append(lastSendedPingTime);
+			using namespace std::chrono;
+			uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+			uint64_t abs_diff = (lastSendedPingTime > currentTime) ? (currentTime - lastSendedPingTime) : (lastSendedPingTime - currentTime);
+			assert(abs_diff <= INT64_MAX);
+			int ping = (lastSendedPingTime > currentTime) ? (int64_t)abs_diff : -(int64_t)abs_diff;
+			args.append(ping);
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
 			break;
 
