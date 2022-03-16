@@ -57,7 +57,7 @@ void Player::locationDataRecognizer(float delta)
 
 void Player::syncLagCompensation()
 {
-	Godot::print(std::to_string(PING).c_str());
+	Godot::print("PING = " + godot::String( std::to_string(PING).c_str() ));
 	float distanceIndex = (1000 - PING / 2) * processTime / 1000;
 	Godot::print("distanceIndex = " + godot::String( std::to_string(distanceIndex).c_str() ) );
 	int backIndex = round(processTime - distanceIndex);
