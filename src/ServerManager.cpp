@@ -14,7 +14,7 @@ void ServerManager::_register_methods()
 	register_method("OnClientConnected", &ServerManager::OnClientConnected);
 	register_method("OnClientDisconnected", &ServerManager::OnClientDisconnected);
 	register_method("OnPingTimerTimeout", &ServerManager::OnPingTimerTimeout);
-
+	
 }
 void ServerManager::_ready()
 {

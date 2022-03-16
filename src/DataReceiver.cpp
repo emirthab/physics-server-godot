@@ -16,7 +16,8 @@ void ServerManager::OnDataReceived(const int id) {
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("receiveMovementData", args);
 			break;
 
-		case 0x06 : 
+		case 0x06 :
+			args.append(lastSendedPingTime);
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
 			break;
 

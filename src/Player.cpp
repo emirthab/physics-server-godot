@@ -40,14 +40,13 @@ void Player::receiveMovementData(int key, bool value)
 	syncLagCompensation();
 }
 
-void Player::setPing()
+void Player::setPing(uint64_t lastTime)
 {
-	ServerManager* Manager;
 	using namespace std::chrono;
 	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-	Godot::print( "lastPingTime = " + godot::String(std::to_string( Manager->lastSendedPingTime ).c_str()));
-	Godot::print("CurretnTime = " + godot::String(std::to_string(currentTime).c_str()));
-	PING = Manager->lastSendedPingTime - currentTime;
+	Godot::print( "lastPingTime = " + godot::String(std::to_string(lastTime).c_str()));
+	Godot::print("CurrentTime = " + godot::String(std::to_string(currentTime).c_str()));
+	PING = lastTime - currentTime;
 }
 
 void Player::locationDataRecognizer(float delta)
