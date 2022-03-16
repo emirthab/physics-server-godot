@@ -137,6 +137,7 @@ void ServerManager::OnPingTimerTimeout() {
 	using namespace std::chrono;
 	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 	lastSendedPingTime = currentTime;
+	Godot::print("lastPingTimeONSERVERMANAGER = " + godot::String(std::to_string(lastSendedPingTime).c_str()));
 	SendData::AllPlayers(DataStringifier::Ping());
 }
 
