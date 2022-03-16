@@ -42,7 +42,9 @@ void Player::receiveMovementData(int key, bool value)
 
 void Player::setPing()
 {
-	PING = lastSendedPingTime - time(nullptr) * 1000;;
+	Godot::print( "lastPingTime = " + godot::String(std::to_string(lastSendedPingTime).c_str()));
+	Godot::print("CurretnTime = " + godot::String(std::to_string(time(nullptr) * 1000).c_str()));
+	PING = lastSendedPingTime - time(nullptr) * 1000;
 }
 
 void Player::locationDataRecognizer(float delta)
