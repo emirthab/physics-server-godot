@@ -42,9 +42,7 @@ void Player::receiveMovementData(int key, bool value)
 
 void Player::setPing()
 {
-	PING = lastSendedPingTime - time(nullptr) * 1000;
-	Godot::print(std::to_string(PING).c_str());
-
+	PING = lastSendedPingTime - time(nullptr) * 1000;;
 }
 
 void Player::locationDataRecognizer(float delta)
@@ -60,12 +58,18 @@ void Player::locationDataRecognizer(float delta)
 void Player::syncLagCompensation()
 {
 	float distanceIndex = (1000 - PING / 2) * processTime / 1000;
+	Godot::print("distanceIndex = " + godot::String( std::to_string(distanceIndex).c_str() ) );
 	int backIndex = round(processTime - distanceIndex);
+	Godot::print("backIndex = " + godot::String(std::to_string(backIndex).c_str()));
 	int arrayIndex = LocationDataHistory.size() - backIndex;
+	Godot::print("arrayIndex = " + godot::String(std::to_string(arrayIndex).c_str()));
 
 	Vector2 pos;
 	if (LocationDataHistory.size() >= arrayIndex) {
 		pos = LocationDataHistory[arrayIndex];
+
+		Godot::print("POS = " + godot::String(pos));
+
 		get_transform().set_origin(pos);
 		SendData sendData;
 		sendData.AllPlayers(DataStringifier::LagCompensationPosition(get_name().to_int(), pos.x, pos.y));

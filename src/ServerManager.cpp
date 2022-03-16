@@ -73,7 +73,6 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 	std::vector<int> PeersArray = ConnectedPeers::GetPeersArray();
 	if (PeersArray.size() > 0) {
 		for (int i : PeersArray) {
-			Godot::print(std::to_string(i).c_str());
 			Node2D* player = get_node<Node2D>(NodePath("SpawnPoint/" + godot::String(std::to_string(i).c_str())) );
 			float x = player->get_transform().get_origin().x;
 			float y = player->get_transform().get_origin().y;
@@ -133,7 +132,6 @@ void ServerManager::PutPacket(Variant peer, godot::String data) {
 godot::String ServerManager::GetPacket(Variant peer){
 	Variant pktBuffer = peer.call("get_packet", nullptr, 0);
 	godot::String pkt = pktBuffer.call("get_string_from_utf8", nullptr, 0);
-	Godot::print(pkt);
 	return pkt;
 }
 

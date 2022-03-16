@@ -17,9 +17,11 @@ void ServerManager::OnDataReceived(const int id) {
 			break;
 
 		case 0x06 : 
-			Godot::print("Ping Geldi");
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
 			break;
+
+		//case 0x07 : 
+
 	}
 }
 
