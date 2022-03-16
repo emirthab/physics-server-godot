@@ -43,6 +43,9 @@ class ServerManager : public Node
 		void CreateServer();
 		
 		uint64_t lastSendedPingTime;
+		uint64_t GetLastSendedPingTime() {
+			return lastSendedPingTime;
+		};
 
 		void OnClientConnected(int id, godot::String proto);
 		void OnClientDisconnected(int id, bool was_clean_close);
