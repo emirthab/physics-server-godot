@@ -46,7 +46,9 @@ void Player::setPing(uint64_t lastTime)
 	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 	Godot::print( "lastPingTime = " + godot::String(std::to_string(lastTime).c_str()));
 	Godot::print("CurrentTime = " + godot::String(std::to_string(currentTime).c_str()));
+	Godot::print("DIFF = " + godot::String(std::to_string(lastTime - currentTime).c_str()));
 	PING = lastTime - currentTime;
+	Godot::print("PING = " + godot::String(std::to_string(PING).c_str()));
 }
 
 void Player::locationDataRecognizer(float delta)
@@ -61,7 +63,7 @@ void Player::locationDataRecognizer(float delta)
 
 void Player::syncLagCompensation()
 {
-	Godot::print("PING = " + godot::String( std::to_string(PING).c_str() ));
+	//Godot::print("PING = " + godot::String( std::to_string(PING).c_str() ));
 	float distanceIndex = (1000 - PING / 2) * processTime / 1000;
 	Godot::print("distanceIndex = " + godot::String( std::to_string(distanceIndex).c_str() ) );
 	int backIndex = round(processTime - distanceIndex);
