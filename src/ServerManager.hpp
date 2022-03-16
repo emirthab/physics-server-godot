@@ -23,6 +23,7 @@
 using namespace godot;
 
 static Ref<WebSocketServer> server;
+static uint64_t lastSendedPingTime;
 
 class ServerManager : public Node
 {	
@@ -37,8 +38,6 @@ class ServerManager : public Node
 	
 	
 		static void _register_methods();
-	
-		static uint64_t lastSendedPingTime;
 
 		void _init();
 		void _process(const double p_delta);
