@@ -24,6 +24,7 @@ using namespace godot;
 
 static Ref<WebSocketServer> server;
 static uint64_t lastSendedPingTime;
+static int deneme;
 
 class ServerManager : public Node
 {	
