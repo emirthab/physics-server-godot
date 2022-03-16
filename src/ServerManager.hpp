@@ -15,8 +15,6 @@
 
 #include <chrono>
 #include <iostream>
-#include <time.h>
-#include <ctime>
 
 #include <SceneTree.hpp>
 

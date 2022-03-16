@@ -134,7 +134,9 @@ godot::String ServerManager::GetPacket(Variant peer){
 }
 
 void ServerManager::OnPingTimerTimeout() {
-	lastSendedPingTime = time(nullptr) * 1000;
+	using namespace std::chrono;
+	uint64_t currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+	lastSendedPingTime = currentTime;
 	SendData::AllPlayers(DataStringifier::Ping());
 }
 
