@@ -76,7 +76,7 @@ void ServerManager::OnClientConnected(int id, godot::String proto)
 			Node2D* player = get_node<Node2D>(NodePath("SpawnPoint/" + godot::String(std::to_string(i).c_str())) );
 			float x = player->get_transform().get_origin().x;
 			float y = player->get_transform().get_origin().y;
-			SendData::SpesificId(id, DataStringifier::OldPlayerDataToJoinedPlayer(i, x, y));
+			SendData::SpesificId(id, DataStringifier::OldPlayerPosDataToJoinedPlayer(i, x, y));
 		}
 	}
 	ConnectedPeers::InsertPeer(id);

@@ -16,6 +16,8 @@
 #include <chrono>
 #include <iostream>
 
+#include <Dictionary.hpp>
+
 #include <SceneTree.hpp>
 
 #include "ConnectedPeers.hpp"

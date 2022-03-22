@@ -1,6 +1,6 @@
 #include "Player.hpp"
-#include "ServerManager.hpp"
-#include "DataStringifier.hpp"
+#include "../ServerManager.hpp"
+#include "../DataStringifier.hpp"
 
 using namespace godot;
 using namespace std::chrono;
@@ -11,6 +11,8 @@ void Player::_register_methods()
 	register_method("_init", &Player::_init);
 	register_method("receiveMovementData", &Player::receiveMovementData);
 	register_method("setPing", &Player::setPing);
+	register_method("setDisplayName", &Player::setDisplayName);
+
 }
 
 void Player::_init()
@@ -46,6 +48,12 @@ void Player::setPing(int ping)
 	PING = ping;
 }
 
+void Player::setDisplayName(godot::String _displayName) {
+	displayName = _displayName;
+	SendData sendData;
+	sendData.AllPlayersExceptId(get_name().to_int(), DataStringifier::NewPlayerJoinedWithName(get_name().to_int(), std::string(_displayName.utf8().get_data()) ));
+}
+
 void Player::locationDataRecognizer(float delta)
 {
 	if (!processTime) { processTime = int(1.0 / delta); }
@@ -58,19 +66,13 @@ void Player::locationDataRecognizer(float delta)
 
 void Player::syncLagCompensation()
 {
-	Godot::print("PING = " + godot::String( std::to_string(PING).c_str() ));
 	float distanceIndex = (1000 - PING / 2) * processTime / 1000;
-	Godot::print("distanceIndex = " + godot::String( std::to_string(distanceIndex).c_str() ) );
 	int backIndex = round(processTime - distanceIndex);
-	Godot::print("backIndex = " + godot::String(std::to_string(backIndex).c_str()));
 	int arrayIndex = LocationDataHistory.size() - backIndex;
-	Godot::print("arrayIndex = " + godot::String(std::to_string(arrayIndex).c_str()));
 
 	Vector2 pos;
 	if (LocationDataHistory.size() >= arrayIndex) {
 		pos = LocationDataHistory[arrayIndex];
-
-		Godot::print("POS = " + godot::String(pos));
 
 		get_transform().set_origin(pos);
 		SendData sendData;
@@ -88,7 +90,6 @@ void Player::_physics_process(float delta)
 	if (isPressingDown == 1) { velocity.y += 1; };
 	if (isPressingUp == 1) { velocity.y -= 1; };
 
-	//Godot::print(velocity);
 	velocity = velocity.normalized() * speed;
 	velocity = move_and_slide(velocity);
 	

@@ -14,6 +14,11 @@ config/name="Saniyelika-Server-cpp"
 run/main_scene="res://Assets/Levels/DemoLevel4.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+EventManager="*res://gdnative/EventManager.gdns"
+ServerManager="*res://gdnative/ServerManager.gdns"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

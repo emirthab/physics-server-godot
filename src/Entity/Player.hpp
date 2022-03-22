@@ -32,7 +32,9 @@ class Player : public KinematicBody2D
 		void _physics_process(float delta);
 
 		uint64_t PING;
+		godot::String displayName;
 
+		void setDisplayName(godot::String _displayName);
 		void receiveMovementData(int key, bool value);
 		void setPing(int ping);
 		void locationDataRecognizer(float delta);

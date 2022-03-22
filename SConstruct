@@ -87,7 +87,7 @@ env.Append(
         godot_bindings_path + "/include",
         godot_bindings_path + "/include/gen/",
         godot_bindings_path + "/include/core/",
-        "src/External"
+        "src/External",
     ]
 )
 
@@ -101,6 +101,8 @@ env.Append(LIBPATH=[godot_bindings_path + "/bin/"])
 
 sources = []
 add_sources(sources, "src")
+add_sources(sources, "src/Entity")
+add_sources(sources, "src/Event")
 
 library = env.SharedLibrary(target=env["target_path"] + "/" + platform + "/" + env["target_name"], source=sources)
 Default(library)

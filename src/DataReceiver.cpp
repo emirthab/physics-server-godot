@@ -24,9 +24,6 @@ void ServerManager::OnDataReceived(const int id) {
 			args.append(ping);
 			tree->get_current_scene()->get_node(NodePath("SpawnPoint/" + _id))->callv("setPing", args);
 			break;
-
-		//case 0x07 : 
-
 	}
 }
 
