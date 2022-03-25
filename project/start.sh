@@ -1,0 +1,1 @@
+./godot-server.64 "server.pck"
